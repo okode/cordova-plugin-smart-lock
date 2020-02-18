@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
+  id="cordova-plugin-smart-lock" version="0.0.1">
+  <name>SmartLock</name>
+  <description>Cordova plugin to use Smart Lock on Android</description>
+  <license>MIT</license>
+  <keywords>cordova,plugin,android,smartlock,authentication</keywords>
+  <repo>https://github.com/okode/cordova-plugin-smart-lock.git</repo>
+
+  <engines>
+    <engine name="cordova-android" version=">=9.0.0" />
+  </engines>
+
+  <js-module src="www/Smartlock.js" name="Smartlock">
+    <clobbers target="Smartlock" />
+  </js-module>
+
+  <!-- android -->
+  <platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="Smartlock">
+        <param name="android-package" value="com.okode.cordova.smartlock.Smartlock" />
+      </feature>
+    </config-file>
+
+    <source-file src="src/android/Smartlock.java" target-dir="src/com/okode/cordova/smartlock" />
+  </platform>
+
+</plugin>

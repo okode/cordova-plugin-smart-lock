@@ -1,0 +1,53 @@
+{
+  "name": "cordova-plugin-smart-lock",
+  "version": "0.0.1",
+  "description": "Cordova plugin to use Smart Lock on Android",
+  "cordova": {
+    "id": "cordova-plugin-smart-lock",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/okode/cordova-plugin-smart-lock"
+  },
+  "keywords": [
+    "cordova",
+    "plugin",
+    "android",
+    "authentication",
+    "ecosystem:cordova",
+    "cordova-android",
+    "smartlock"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "cordova-paramedic": "git+https://github.com/apache/cordova-paramedic.git",
+    "cordova-plugin-xml": "^0.1.2",
+    "eslint": "^6.5.1",
+    "jasmine": "^3.2.0"
+  },
+  "scripts": {
+    "test": "npm run eslint",
+    "eslint": "npx eslint www",
+    "test-travis": "npm run test-ios",
+    "test-appveyor": "npm run test-browser",
+    "test-local": "npm run test-browser && npm run test-android && npm run test-ios",
+    "test-android": "npx cordova-paramedic --platform android --plugin  $(pwd)",
+    "test-ios": "npx cordova-paramedic --platform ios --plugin  $(pwd) --verbose",
+    "test-windows": "npx cordova-paramedic --platform windows --plugin  $(pwd)",
+    "test-browser": "npx cordova-paramedic --platform browser --plugin  $(pwd)",
+    "test-saucelabs": "npm run test-saucelabs-ios && npm run test-saucelabs-android",
+    "test-saucelabs-ios": "npx cordova-paramedic --config ./pr/ios-10.0 --plugin  $(pwd) --shouldUseSauce",
+    "test-saucelabs-android": "npx cordova-paramedic --config ./pr/android-7.0 --plugin  $(pwd) --shouldUseSauce",
+    "plugin-version": "cordova-plugin-xml setVersion"
+  },
+  "engines": {
+    "cordovaDependencies": {
+      ">=3.0.0": {
+        "cordova-android": ">=8.0.0"
+      }
+    }
+  }
+}

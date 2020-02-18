@@ -1,0 +1,13 @@
+{
+    "name": "cordova-plugin-smart-lock-tests",
+    "version": "1.0.0-dev",
+    "description": "",
+    "cordova": {
+        "id": "cordova-plugin-smart-lock-tests",
+        "platforms": ["android"]
+    },
+    "keywords": [
+        "ecosystem:cordova"
+    ],
+    "license": "MIT"
+}
