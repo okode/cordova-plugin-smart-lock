@@ -24,6 +24,8 @@
     </config-file>
 
     <source-file src="src/android/Smartlock.java" target-dir="src/com/okode/cordova/smartlock" />
+    <source-file src="src/android/SmartlockActivity.java" target-dir="src/com/okode/cordova/smartlock" />
+    <source-file src="src/android/PluginError.java" target-dir="src/com/okode/cordova/smartlock" />
   </platform>
 
 </plugin>
