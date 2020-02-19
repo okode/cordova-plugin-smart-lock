@@ -1,5 +1,6 @@
 package org.apache.cordova.smartlock;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.support.annotation.NonNull;
@@ -17,7 +18,6 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
 import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,17 +28,19 @@ public class SmartlockManager extends AppCompatActivity {
     private static final int RC_READ = 11;
     private static final int RC_SAVE = 10;
 
-    private CallbackContext mCallbackContext = null;
+    private CallbackContext mCallbackContext;
     private GoogleApiClient googleApiClient;
+    private Activity cordovaActivity;
     private boolean mIsResolving = false;
 
-    protected void initialize(CallbackContext callbackContext) {
+    public SmartlockManager(CallbackContext callbackContext, Activity cordovaActivity) {
         this.mCallbackContext = callbackContext;
+        this.cordovaActivity = cordovaActivity;
+
         CredentialsOptions credentialsOptions = new CredentialsOptions.Builder()
                 .forceEnableSaveDialog()
                 .build();
-
-        googleApiClient = new GoogleApiClient.Builder(cordova.getActivity())
+        this.googleApiClient = new GoogleApiClient.Builder(this.cordovaActivity)
                 .addApi(Auth.CREDENTIALS_API, credentialsOptions)
                 .build();
     }
@@ -130,7 +132,7 @@ public class SmartlockManager extends AppCompatActivity {
         Log.d(TAG, "Resolving: " + status);
         if (status.hasResolution()) {
             try {
-                status.startResolutionForResult(cordova.getActivity(), requestCode);
+                status.startResolutionForResult(cordovaActivity, requestCode);
                 mIsResolving = true;
             } catch (IntentSender.SendIntentException e) {
                 Log.e(TAG, "STATUS: Failed to send resolution.", e);
@@ -146,12 +148,12 @@ public class SmartlockManager extends AppCompatActivity {
 
     public void sendEmptySuccess() {
         Log.e(TAG, "Empty success");
-        cordova.getActivity().runOnUiThread(() -> this.mCallbackContext.success());
+        cordovaActivity.runOnUiThread(() -> this.mCallbackContext.success());
     }
 
     public void sendRequestSuccess(String message) {
         Log.e(TAG, "Request Success" + message);
-        cordova.getActivity().runOnUiThread(() -> this.mCallbackContext.success(message));
+        cordovaActivity.runOnUiThread(() -> this.mCallbackContext.success(message));
     }
 
     public void sendError(PluginError error) {
@@ -165,7 +167,7 @@ public class SmartlockManager extends AppCompatActivity {
             resultJson.put("message", message);
 
             PluginResult result = new PluginResult(PluginResult.Status.ERROR, resultJson);
-            cordova.getActivity().runOnUiThread(() ->
+            cordovaActivity.runOnUiThread(() ->
                     this.mCallbackContext.sendPluginResult(result));
         } catch (JSONException e) {
             Log.e(TAG, e.getMessage(), e);

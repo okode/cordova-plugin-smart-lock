@@ -4,7 +4,6 @@ import com.google.android.gms.auth.api.credentials.Credential;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
-import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,19 +11,20 @@ import org.json.JSONObject;
 public class Smartlock extends CordovaPlugin {
 
     private static final String TAG = "Smartlock";
-    SmartlockManager smartlock;
+    private static SmartlockManager smartlockManager;
 
     public boolean execute(final String action, JSONArray args, CallbackContext callbackContext) {
-        this.smartlock = new SmartlockManager();
-        this.smartlock.initialize(callbackContext);
+        if (smartlockManager == null) {
+            smartlockManager = new SmartlockManager(callbackContext, cordova.getActivity());
+        }
 
         if (action.equals("request")) {
-            this.smartlock.executeRequest();
+            smartlockManager.executeRequest();
             return true;
         }
         if (action.equals("save")){
             Credential credential = parseSaveRequest(args);
-            this.smartlock.executeSave(credential);
+            smartlockManager.executeSave(credential);
             return true;
         }
         if (action.equals("delete")){
@@ -49,7 +49,7 @@ public class Smartlock extends CordovaPlugin {
                     .setPassword(password)
                     .build();
         } catch (JSONException e) {
-            this.smartlock.sendError(PluginError.SMARTLOCK__SAVE__BAD_REQUEST);
+            smartlockManager.sendError(PluginError.SMARTLOCK__SAVE__BAD_REQUEST);
         }
     }
 
