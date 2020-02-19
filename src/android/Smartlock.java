@@ -32,28 +32,8 @@ public class Smartlock extends AppCompatActivity {
     private GoogleApiClient googleApiClient;
     private boolean mIsResolving = false;
 
-    public boolean execute(final String action, JSONArray args, CallbackContext callbackContext) {
+    protected void initialize(CallbackContext callbackContext) {
         this.mCallbackContext = callbackContext;
-
-        if (action.equals("request")) {
-            executeRequest();
-            return true;
-        }
-        if (action.equals("save")){
-            Credential credential = parseSaveRequest(args);
-            executeSave(credential);
-            return true;
-        }
-        if (action.equals("delete")){
-            // TODO
-            // executeDelete();
-            return true;
-        }
-
-        return false;
-    }
-
-    protected void initialize() {
         CredentialsOptions credentialsOptions = new CredentialsOptions.Builder()
                 .forceEnableSaveDialog()
                 .build();
@@ -64,8 +44,6 @@ public class Smartlock extends AppCompatActivity {
     }
 
     public void executeRequest() {
-        initialize();
-
         CredentialRequest credentialRequest = new CredentialRequest.Builder()
                 .setPasswordLoginSupported(true)
                 .build();
@@ -94,23 +72,6 @@ public class Smartlock extends AppCompatActivity {
                         }
                     }
                 });
-    }
-
-    private Credential parseSaveRequest(JSONArray args) {
-        JSONObject argsObject;
-        try {
-            argsObject = args.getJSONObject(0);
-            String id = (String) argsObject.get("id");
-            String name = (String) argsObject.get("name");
-            String password = (String) argsObject.get("password");
-
-            return new Credential.Builder(id)
-                    .setName(name)
-                    .setPassword(password)
-                    .build();
-        } catch (JSONException e) {
-            sendError(PluginError.SMARTLOCK__SAVE__BAD_REQUEST);
-        }
     }
 
     private void executeSave(Credential credential) {
