@@ -19,14 +19,14 @@
   <platform name="android">
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="Smartlock">
-        <param name="android-package" value="com.okode.cordova.smartlock.Smartlock" />
+        <param name="android-package" value="org.apache.cordova.smartlock.Smartlock" />
       </feature>
     </config-file>
 
     <framework src="src/android/build.gradle" custom="true" type="gradleReference"/>
-    <source-file src="src/android/PluginError.java" target-dir="src/com/okode/cordova/smartlock" />
     <source-file src="src/android/Smartlock.java" target-dir="src/com/okode/cordova/smartlock" />
-    <source-file src="src/android/SmartlockPlugin.java" target-dir="src/com/okode/cordova/smartlock" />
+    <source-file src="src/android/PluginError.java" target-dir="src/com/okode/cordova/smartlock" />
+    <source-file src="src/android/SmartlockManager.java" target-dir="src/com/okode/cordova/smartlock" />
   </platform>
 
 </plugin>
