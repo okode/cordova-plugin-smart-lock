@@ -3,6 +3,7 @@ package com.okode.cordova.smartlock;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.android.gms.auth.api.Auth;
@@ -18,7 +19,6 @@ import com.google.android.gms.common.api.Status;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -74,7 +74,7 @@ public class Smartlock extends AppCompatActivity {
                 });
     }
 
-    private void executeSave(Credential credential) {
+    public void executeSave(Credential credential) {
         Auth.CredentialsApi.save(googleApiClient, credential)
                 .setResultCallback(new ResultCallback<Status>() {
                     @Override
@@ -144,21 +144,21 @@ public class Smartlock extends AppCompatActivity {
         }
     }
 
-    private void sendEmptySuccess() {
+    public void sendEmptySuccess() {
         Log.e(TAG, "Empty success");
         cordova.getActivity().runOnUiThread(() -> this.mCallbackContext.success());
     }
 
-    private void sendRequestSuccess(String message) {
+    public void sendRequestSuccess(String message) {
         Log.e(TAG, "Request Success" + message);
         cordova.getActivity().runOnUiThread(() -> this.mCallbackContext.success(message));
     }
 
-    private void sendError(PluginError error) {
+    public void sendError(PluginError error) {
         sendError(error.getValue(), error.getMessage());
     }
 
-    private void sendError(int code, String message) {
+    public void sendError(int code, String message) {
         JSONObject resultJson = new JSONObject();
         try {
             resultJson.put("code", code);

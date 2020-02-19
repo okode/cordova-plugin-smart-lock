@@ -1,17 +1,5 @@
 package com.okode.cordova.smartlock;
 
-import android.app.Activity;
-import android.app.KeyguardManager;
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-import java.util.concurrent.Executor;
-
 public enum PluginError {
 
     SMARTLOCK__REQUEST__ACCOUNTS_NOT_FOUND(10),
@@ -31,12 +19,7 @@ public enum PluginError {
         this.value = value;
         this.message = this.name();
     }
-
-    PluginError(int value, String message) {
-        this.value = value;
-        this.message = message;
-    }
-
+    
     public int getValue() {
         return value;
     }
