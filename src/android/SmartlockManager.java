@@ -40,7 +40,7 @@ public class SmartlockManager extends AppCompatActivity {
         CredentialsOptions credentialsOptions = new CredentialsOptions.Builder()
                 .forceEnableSaveDialog()
                 .build();
-        this.googleApiClient = new GoogleApiClient.Builder(this.cordovaActivity)
+        this.googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Auth.CREDENTIALS_API, credentialsOptions)
                 .build();
     }
