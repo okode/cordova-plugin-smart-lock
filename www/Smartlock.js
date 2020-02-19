@@ -18,23 +18,23 @@ Smartlock.prototype.BIOMETRIC_SCREEN_GUARD_UNSECURED = -110;
 Smartlock.prototype.BIOMETRIC_LOCKED_OUT = -111;
 Smartlock.prototype.BIOMETRIC_LOCKED_OUT_PERMANENT = -112;
 
-Smartlock.prototype.request = function (params, successCallback, errorCallback) {
+Smartlock.prototype.request = function (successCallback, errorCallback) {
   cordova.exec(
     successCallback,
     errorCallback,
     "Smartlock",
     "request",
-    [params]
+    [{}]
   );
 };
 
-Smartlock.prototype.save = function (successCallback, errorCallback) {
+Smartlock.prototype.save = function (params, successCallback, errorCallback) {
   cordova.exec(
     successCallback,
     errorCallback,
     "Smartlock",
     "save",
-    [{}]
+    [params]
   );
 };
 

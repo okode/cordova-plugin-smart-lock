@@ -9,10 +9,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-
-import com.exxbrain.android.biometric.BiometricPrompt;
 
 import java.util.concurrent.Executor;
 
@@ -20,11 +16,11 @@ public enum PluginError {
 
     SMARTLOCK__REQUEST__ACCOUNTS_NOT_FOUND(10),
     SMARTLOCK__REQUEST__DIALOG_CANCELLED(12),
-    
+
     SMARTLOCK__SAVE(13),
-    
+    SMARTLOCK__SAVE__BAD_REQUEST(13),
+
     SMARTLOCK__DELETE(14),
-    
     SMARTLOCK__COMMON__UNKOWN(11),
     SMARTLOCK__COMMON__RESOLUTION_PROMPT_FAIL(15);
 
