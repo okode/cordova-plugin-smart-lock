@@ -57,8 +57,8 @@ public class SmartlockManager extends AppCompatActivity {
                         Status status = credentialRequestResult.getStatus();
                         Log.d(TAG, "Get status " + credentialRequestResult);
                         if (status.isSuccess()) {
-                            // SUCCESS REQUEST TODO
-                            credentialRequestResult.getCredential();
+                            Credential credential = credentialRequestResult.getCredential();
+                            sendRequestSuccess(credential);
                         } else if (status.getStatusCode() == CommonStatusCodes.RESOLUTION_REQUIRED) {
                             resolveResult(status, RC_READ);
                         } else if (status.getStatusCode() == CommonStatusCodes.SIGN_IN_REQUIRED) {
@@ -100,8 +100,8 @@ public class SmartlockManager extends AppCompatActivity {
         switch (requestCode) {
             case RC_READ:
                 if (resultCode == RESULT_OK) {
-                    // SUCCESS REQUEST TODO
                     Credential credential = data.getParcelableExtra(Credential.EXTRA_KEY);
+                    sendRequestSuccess(credential);
                 } else {
                     Log.d(TAG, "Request failed");
                     // ERROR REQUEST
@@ -151,9 +151,16 @@ public class SmartlockManager extends AppCompatActivity {
         cordovaActivity.runOnUiThread(() -> this.mCallbackContext.success());
     }
 
-    public void sendRequestSuccess(String message) {
-        Log.e(TAG, "Request Success" + message);
-        cordovaActivity.runOnUiThread(() -> this.mCallbackContext.success(message));
+    public void sendRequestSuccess(Credential credential) {
+        Log.e(TAG, "Request Success");
+        JSONObject response = new JSONObject();
+        try {
+            response.put("id", credential.getId());
+            response.put("name", credential.getName());
+            response.put("password", credential.getPassword());
+        } catch (JSONException e) {}
+        
+        cordovaActivity.runOnUiThread(() -> this.mCallbackContext.success(response));
     }
 
     public void sendError(PluginError error) {

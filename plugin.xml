@@ -11,7 +11,7 @@
     <engine name="cordova-android" version=">=8.0.0" />
   </engines>
 
-  <js-module src="www/Smartlock.js" name="Smartlock">
+  <js-module src="www/smartlock.js" name="Smartlock">
     <clobbers target="Smartlock" />
   </js-module>
 
