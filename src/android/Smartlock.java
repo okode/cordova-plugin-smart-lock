@@ -15,7 +15,7 @@ public class Smartlock extends CordovaPlugin {
     SmartlockManager smartlock;
 
     public boolean execute(final String action, JSONArray args, CallbackContext callbackContext) {
-        this.smartlock = new Smartlock();
+        this.smartlock = new SmartlockManager();
         this.smartlock.initialize(callbackContext);
 
         if (action.equals("request")) {
