@@ -51,6 +51,7 @@ public class Smartlock extends CordovaPlugin {
         } catch (JSONException e) {
             smartlockManager.sendError(PluginError.SMARTLOCK__SAVE__BAD_REQUEST);
         }
+        return null;
     }
 
 }
