@@ -1,4 +1,4 @@
-package com.okode.cordova.smartlock;
+package org.apache.cordova.smartlock;
 
 import com.google.android.gms.auth.api.credentials.Credential;
 
