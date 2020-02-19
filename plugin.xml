@@ -23,8 +23,8 @@
       </feature>
     </config-file>
 
+    <framework src="src/android/build.gradle" custom="true" type="gradleReference"/>
     <source-file src="src/android/Smartlock.java" target-dir="src/com/okode/cordova/smartlock" />
-    <source-file src="src/android/SmartlockActivity.java" target-dir="src/com/okode/cordova/smartlock" />
     <source-file src="src/android/PluginError.java" target-dir="src/com/okode/cordova/smartlock" />
   </platform>
 
