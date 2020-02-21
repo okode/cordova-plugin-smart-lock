@@ -38,7 +38,7 @@ Smartlock.prototype.save = function (params, successCallback, errorCallback) {
   );
 };
 
-Smartlock.prototype.delete = function (successCallback, errorCallback) {
+Smartlock.prototype.delete = function (params, successCallback, errorCallback) {
   cordova.exec(
     successCallback,
     errorCallback,
