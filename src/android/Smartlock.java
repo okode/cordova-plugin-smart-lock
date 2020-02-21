@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.android.gms.auth.api.credentials.Credential;
@@ -171,7 +172,12 @@ public class Smartlock extends CordovaPlugin {
         JSONObject argsObject;
         argsObject = args.getJSONObject(0);
         String id = (String) argsObject.get("id");
+
         String password = (String) argsObject.get("password");
+        if (TextUtils.isEmpty(password)) {
+            throw new JSONException("Password cant be empty");
+        }
+
 
         String name;
         String profileUri;
@@ -207,7 +213,7 @@ public class Smartlock extends CordovaPlugin {
             try {
                 status.startResolutionForResult(this.cordova.getActivity(), requestCode);
             } catch (IntentSender.SendIntentException e) {
-                // ERROR Weird Resolution REQUEST/SAVE
+                // Weird Resolution error on request/save
                 sendError(callbackContext, PluginError.SMARTLOCK__COMMON__RESOLUTION_PROMPT_FAIL);
             }
         } else {
