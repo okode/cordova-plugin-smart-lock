@@ -4,19 +4,18 @@ var Smartlock = function() {
 };
 
 // Plugin Errors
-Smartlock.prototype.BIOMETRIC_UNKNOWN_ERROR = -100;
-Smartlock.prototype.BIOMETRIC_UNAVAILABLE = -101;
-Smartlock.prototype.BIOMETRIC_AUTHENTICATION_FAILED = -102;
-Smartlock.prototype.BIOMETRIC_SDK_NOT_SUPPORTED = -103;
-Smartlock.prototype.BIOMETRIC_HARDWARE_NOT_SUPPORTED = -104;
-Smartlock.prototype.BIOMETRIC_PERMISSION_NOT_GRANTED = -105;
-Smartlock.prototype.BIOMETRIC_NOT_ENROLLED = -106;
-Smartlock.prototype.BIOMETRIC_INTERNAL_PLUGIN_ERROR = -107;
-Smartlock.prototype.BIOMETRIC_DISMISSED = -108;
-Smartlock.prototype.BIOMETRIC_PIN_OR_PATTERN_DISMISSED = -109;
-Smartlock.prototype.BIOMETRIC_SCREEN_GUARD_UNSECURED = -110;
-Smartlock.prototype.BIOMETRIC_LOCKED_OUT = -111;
-Smartlock.prototype.BIOMETRIC_LOCKED_OUT_PERMANENT = -112;
+Smartlock.prototype.SMARTLOCK__REQUEST__ACCOUNTS_NOT_FOUND = -100
+Smartlock.prototype.SMARTLOCK__REQUEST__DIALOG_CANCELLED = -101
+
+Smartlock.prototype.SMARTLOCK__SAVE = -200
+Smartlock.prototype.SMARTLOCK__SAVE__BAD_REQUEST = -201
+
+Smartlock.prototype.SMARTLOCK__DELETE = -300
+
+Smartlock.prototype.SMARTLOCK__COMMON__UNKOWN = -400
+Smartlock.prototype.SMARTLOCK__COMMON__CONCURRENT_NOT_ALLOWED = -401
+Smartlock.prototype.SMARTLOCK__COMMON__GOOGLE_API_UNAVAILABLE = -402
+Smartlock.prototype.SMARTLOCK__COMMON__RESOLUTION_PROMPT_FAIL = -403
 
 Smartlock.prototype.request = function (successCallback, errorCallback) {
   cordova.exec(
