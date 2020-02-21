@@ -44,7 +44,7 @@ Smartlock.prototype.delete = function (successCallback, errorCallback) {
     errorCallback,
     "Smartlock",
     "delete",
-    [{}]
+    [params]
   );
 };
 
