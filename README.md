@@ -34,7 +34,7 @@ devDependencies: {
 ```
 
 
-## PluginErrors
+## Plugin Errors
 
 ### Request
 
