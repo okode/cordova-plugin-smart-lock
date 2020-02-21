@@ -7,9 +7,25 @@
 
 ## How to use
 
-[Ionic Native Example](https://github.com/NiklasMerz/fingerprint-aio-demo/tree/ionic-native)
+Cordova
 
-[ngCordova Example (TODO)](https://github.com/TODO)
+```
+window.smartlock.save({
+  id,
+  name,
+  password
+}); 
+```
+```
+window.smartlock.request();
+```
+```
+window.smartlock.delete({ id });
+```
+
+Ionic-native (Not supported)
+
+[Example](https://github.com/jorgnava/smartlock-plugin-test)
 
 
 ## Install
@@ -19,12 +35,6 @@
 Add to your package.json
 
 ```
-dependencies: {
-  ...
-  // TODO not published yet
-  "@okode/smart-lock": "{{VERSION}}",
-  ...
-},
 devDependencies: {
   ...
   "cordova-plugin-smart-lock": "github:okode/cordova-plugin-smart-lock#{{VERSION}}",
