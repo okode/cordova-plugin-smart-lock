@@ -90,4 +90,8 @@ public class SmartlockManager  {
                 .setResultCallback(callback);
     }
 
+    public void executeDelete(Credential credential, ResultCallback callback) {
+        Auth.CredentialsApi.delete(googleApiClient, credential)
+                .setResultCallback(callback);
+    }
 }
