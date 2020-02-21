@@ -3,6 +3,7 @@ package org.apache.cordova.smartlock;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -44,7 +45,6 @@ public class Smartlock extends CordovaPlugin {
 
     public boolean execute(final String action, JSONArray args, CallbackContext callbackContext) {
         if (isCallPocessing) {
-            Log.d(TAG, "CONCURRENT ERROR");
             sendConcurrentError();
             return true;
         }
@@ -84,11 +84,9 @@ public class Smartlock extends CordovaPlugin {
                         resolveResult(callbackContext, status, RC_READ);
                     } else if (status.getStatusCode() == CommonStatusCodes.SIGN_IN_REQUIRED) {
                         Log.d(TAG, "Sign in required");
-                        // ERROR REQUEST (Empty, not found cases)
                         sendError(callbackContext, PluginError.SMARTLOCK__REQUEST__ACCOUNTS_NOT_FOUND);
                     } else {
                         Log.w(TAG, "Unrecognized status code: " + status.getStatusCode());
-                        // ERROR REQUEST (Unknown)
                         sendError(callbackContext,
                                 PluginError.SMARTLOCK__COMMON__UNKOWN.getValue(),
                                 status.getStatusCode() + " - " + status.getStatusMessage());
@@ -102,41 +100,41 @@ public class Smartlock extends CordovaPlugin {
             Credential credential = null;
             try {
                 credential = parseSaveRequest(args);
+                smartlockManager.executeSave(credential, new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        if (status.isSuccess()) {
+                            Log.d(TAG, "Save success");
+                            sendSuccess(callbackContext);
+                        } else {
+                            resolveResult(callbackContext, status, RC_SAVE);
+                        }
+                    }
+                });
             } catch (JSONException e) {
                 sendError(callbackContext, PluginError.SMARTLOCK__SAVE__BAD_REQUEST);
             }
-            smartlockManager.executeSave(credential, new ResultCallback<Status>() {
-                @Override
-                public void onResult(@NonNull Status status) {
-                    if (status.isSuccess()) {
-                        Log.d(TAG, "Save success");
-                        sendSuccess(callbackContext);
-                    } else {
-                        resolveResult(callbackContext, status, RC_SAVE);
-                    }
-                }
-            });
             return;
         }
 
         if (action.equals("delete")){
             Credential credential = null;
             try {
-                credential = parseSaveRequest(args);
+                credential = parseDeleteRequest(args);
+                smartlockManager.executeDelete(credential, new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        if (status.isSuccess()) {
+                            Log.d(TAG, "Delete success");
+                            sendSuccess(callbackContext);
+                        } else {
+                            sendError(callbackContext, PluginError.SMARTLOCK__DELETE);
+                        }
+                    }
+                });
             } catch (JSONException e) {
                 sendError(callbackContext, PluginError.SMARTLOCK__SAVE__BAD_REQUEST);
             }
-            smartlockManager.executeDelete(credential, new ResultCallback<Status>() {
-                @Override
-                public void onResult(@NonNull Status status) {
-                    if (status.isSuccess()) {
-                        Log.d(TAG, "Delete success");
-                        sendSuccess(callbackContext);
-                    } else {
-                        sendError(callbackContext, PluginError.SMARTLOCK__DELETE);
-                    }
-                }
-            });
             return;
         }
     }
@@ -171,15 +169,37 @@ public class Smartlock extends CordovaPlugin {
 
     private Credential parseSaveRequest(JSONArray args) throws JSONException {
         JSONObject argsObject;
-            argsObject = args.getJSONObject(0);
-            String id = (String) argsObject.get("id");
-            String name = (String) argsObject.get("name");
-            String password = (String) argsObject.get("password");
+        argsObject = args.getJSONObject(0);
+        String id = (String) argsObject.get("id");
+        String password = (String) argsObject.get("password");
 
-            return new Credential.Builder(id)
-                    .setName(name)
-                    .setPassword(password)
-                    .build();
+        String name;
+        String profileUri;
+        try {
+            name = (String) argsObject.get("name");
+        } catch (JSONException e) {
+            name = "";
+        }
+        try {
+            profileUri = (String) argsObject.get("profileUri");
+        } catch (JSONException e) {
+            profileUri = "";
+        }
+
+        return new Credential.Builder(id)
+                .setName(name)
+                .setPassword(password)
+                .setProfilePictureUri(Uri.parse(profileUri))
+                .build();
+    }
+
+    private Credential parseDeleteRequest(JSONArray args) throws JSONException {
+        JSONObject argsObject;
+        argsObject = args.getJSONObject(0);
+        String id = (String) argsObject.get("id");
+
+        return new Credential.Builder(id)
+                .build();
     }
 
     private void resolveResult(CallbackContext callbackContext, Status status, int requestCode) {
@@ -200,7 +220,6 @@ public class Smartlock extends CordovaPlugin {
     private void sendSuccess(CallbackContext callbackContext) {
         this.cordova.getActivity().runOnUiThread(() -> callbackContext.success());
         isCallPocessing = false;
-        Log.d(TAG, "CONCURRENT isCallPocessing false");
     }
 
     private void sendRequestSuccess(CallbackContext callbackContext, Credential credential) {
@@ -213,14 +232,12 @@ public class Smartlock extends CordovaPlugin {
 
         this.cordova.getActivity().runOnUiThread(() -> callbackContext.success(response));
         isCallPocessing = false;
-        Log.d(TAG, "CONCURRENT isCallPocessing false");
     }
 
     private void sendError(CallbackContext callbackContext, PluginError error) {
         sendError(callbackContext, error.getValue(), error.getMessage());
         if (!error.equals(PluginError.SMARTLOCK__COMMON__CONCURRENT_NOT_ALLOWED)) {
             isCallPocessing = false;
-            Log.d(TAG, "CONCURRENT isCallPocessing false");
         }
     }
 
