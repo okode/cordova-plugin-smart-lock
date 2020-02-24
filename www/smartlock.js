@@ -18,33 +18,39 @@ Smartlock.prototype.SMARTLOCK__COMMON__GOOGLE_API_UNAVAILABLE = -402
 Smartlock.prototype.SMARTLOCK__COMMON__RESOLUTION_PROMPT_FAIL = -403
 
 Smartlock.prototype.request = function (successCallback, errorCallback) {
-  cordova.exec(
-    successCallback,
-    errorCallback,
-    "Smartlock",
-    "request",
-    [{}]
-  );
+  return new Promise((resolve, reject) => {
+    cordova.exec(
+      () => { resolve(); },
+      error => { reject(error); },
+      "Smartlock",
+      "request",
+      []
+    );
+  });
 };
 
 Smartlock.prototype.save = function (params, successCallback, errorCallback) {
-  cordova.exec(
-    successCallback,
-    errorCallback,
-    "Smartlock",
-    "save",
-    [params]
-  );
+  return new Promise((resolve, reject) => {
+    cordova.exec(
+      () => { resolve(); },
+      error => { reject(error); },
+      "Smartlock",
+      "save",
+      [params]
+    );
+  });
 };
 
 Smartlock.prototype.delete = function (params, successCallback, errorCallback) {
-  cordova.exec(
-    successCallback,
-    errorCallback,
-    "Smartlock",
-    "delete",
-    [params]
-  );
+  return new Promise((resolve, reject) => {
+    cordova.exec(
+      () => { resolve(); },
+      error => { reject(error); },
+      "Smartlock",
+      "delete",
+      [params]
+    );
+  });
 };
 
 module.exports = new Smartlock();
