@@ -40,7 +40,15 @@ devDependencies: {
   "cordova-plugin-smart-lock": "github:okode/cordova-plugin-smart-lock#{{VERSION}}",
   ...
 }
-
+```
+```
+"cordova": {
+  "plugins": {
+    ...
+    "cordova-plugin-smart-lock": {}
+    ...
+  }
+}
 ```
 
 
