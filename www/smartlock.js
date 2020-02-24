@@ -32,7 +32,7 @@ Smartlock.prototype.request = function () {
 Smartlock.prototype.save = function (params) {
   return new Promise((resolve, reject) => {
     cordova.exec(
-      () => { resolve(); },
+      () => { resolve(true); },
       error => { reject(error); },
       "Smartlock",
       "save",
@@ -44,7 +44,7 @@ Smartlock.prototype.save = function (params) {
 Smartlock.prototype.delete = function (params) {
   return new Promise((resolve, reject) => {
     cordova.exec(
-      () => { resolve(); },
+      () => { resolve(true); },
       error => { reject(error); },
       "Smartlock",
       "delete",
