@@ -17,10 +17,10 @@ Smartlock.prototype.SMARTLOCK__COMMON__CONCURRENT_NOT_ALLOWED = -401
 Smartlock.prototype.SMARTLOCK__COMMON__GOOGLE_API_UNAVAILABLE = -402
 Smartlock.prototype.SMARTLOCK__COMMON__RESOLUTION_PROMPT_FAIL = -403
 
-Smartlock.prototype.request = function (successCallback, errorCallback) {
+Smartlock.prototype.request = function () {
   return new Promise((resolve, reject) => {
     cordova.exec(
-      () => { resolve(); },
+      credential => { resolve(credential); },
       error => { reject(error); },
       "Smartlock",
       "request",
@@ -29,7 +29,7 @@ Smartlock.prototype.request = function (successCallback, errorCallback) {
   });
 };
 
-Smartlock.prototype.save = function (params, successCallback, errorCallback) {
+Smartlock.prototype.save = function (params) {
   return new Promise((resolve, reject) => {
     cordova.exec(
       () => { resolve(); },
@@ -41,7 +41,7 @@ Smartlock.prototype.save = function (params, successCallback, errorCallback) {
   });
 };
 
-Smartlock.prototype.delete = function (params, successCallback, errorCallback) {
+Smartlock.prototype.delete = function (params) {
   return new Promise((resolve, reject) => {
     cordova.exec(
       () => { resolve(); },
