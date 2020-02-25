@@ -36,7 +36,6 @@
         <param name="ios-package" value="Smartlock"/>
       </feature>
     </config-file>
-    <header-file src="src/ios/Bridging-Header.h"/>
     <source-file src="src/ios/Smartlock.swift"/>
 
     <podspec>
@@ -48,8 +47,14 @@
         </pods>
     </podspec>
 
-    <!-- TODO: enable Keychain sharing -->
+    <config-file target="*/Entitlements-Debug.plist" parent="keychain-access-groups">
+      <string>$(AppIdentifierPrefix)smartlock</string>
+    </config-file>
     
+    <config-file target="*/Entitlements-Release.plist" parent="keychain-access-groups">
+      <string>$(AppIdentifierPrefix)smartlock</string>
+    </config-file>
+
   </platform>
 
 </plugin>
