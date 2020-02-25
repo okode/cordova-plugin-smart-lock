@@ -57,6 +57,7 @@
   ],
   "license": "MIT",
   "name": "cordova-plugin-smart-lock",
+  "types": "./types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/okode/cordova-plugin-smart-lock.git"
