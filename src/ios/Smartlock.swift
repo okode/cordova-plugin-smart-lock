@@ -1,7 +1,7 @@
 import Foundation
 import KeychainAccess
 
-class Credentials: NSCoding {
+class Credentials: NSObject, NSCoding {
     
     public static let ID_PARAM = "id"
     public static let NAME_PARAM = "name"
@@ -30,7 +30,7 @@ class Credentials: NSCoding {
     }
     
     static func parse(args: [Any]?) -> Credentials? {
-        if (args == nil || args!.count >= 1) { return nil }
+        if (args == nil || args!.count == 0) { return nil }
         if let json = args![0] as? [String: String],
             let id = json[Credentials.ID_PARAM],
             let name = json[Credentials.NAME_PARAM],
@@ -42,7 +42,7 @@ class Credentials: NSCoding {
 
 }
 
-class Smartlock : CDVPlugin {
+@objc(Smartlock) class Smartlock : CDVPlugin {
     
     private static let KEYCHAIN_GROUP_NAME = "smartlock"
     private static let CREDENTIALS_KEYCHAIN_KEY = "smartlock_credentials"
@@ -58,9 +58,10 @@ class Smartlock : CDVPlugin {
         super.pluginInitialize()
     }
 
+    @objc(save:)
     func save(_ command: CDVInvokedUrlCommand) {
         if let credentials = Credentials.parse(args: command.arguments) {
-            let keychain = Keychain(accessGroup: Smartlock.KEYCHAIN_GROUP_NAME)
+            let keychain = self.getSharedKeyChainInstance()
             do {
                 let credentialsData = NSKeyedArchiver.archivedData(withRootObject: credentials)
                 try keychain.set(credentialsData, key: Smartlock.CREDENTIALS_KEYCHAIN_KEY)
@@ -74,8 +75,9 @@ class Smartlock : CDVPlugin {
         }
     }
 
+    @objc(request:)
     func request(_ command: CDVInvokedUrlCommand){
-        let keychain = Keychain(accessGroup: Smartlock.KEYCHAIN_GROUP_NAME)
+        let keychain = self.getSharedKeyChainInstance()
         do {
             // Getting credentials from Keychain
             if let credentialsData = try keychain.getData(Smartlock.CREDENTIALS_KEYCHAIN_KEY) {
@@ -100,8 +102,9 @@ class Smartlock : CDVPlugin {
 
     }
 
+    @objc(delete:)
     func delete(_ command: CDVInvokedUrlCommand){
-        let keychain = Keychain(accessGroup: Smartlock.KEYCHAIN_GROUP_NAME)
+        let keychain = self.getSharedKeyChainInstance()
         do {
             try keychain.remove(Smartlock.CREDENTIALS_KEYCHAIN_KEY)
             let result = CDVPluginResult.init(status: CDVCommandStatus.ok)
@@ -112,17 +115,22 @@ class Smartlock : CDVPlugin {
         }
     }
     
-    func sendSuccess(callbackId: String) {
+    private func getSharedKeyChainInstance() -> Keychain {
+        let teamId = self.commandDelegate.settings["smartlock.teamId"] as? String ?? ""
+        return Keychain(accessGroup: "\(teamId).\(Smartlock.KEYCHAIN_GROUP_NAME)")
+    }
+    
+    private func sendSuccess(callbackId: String) {
         let result = CDVPluginResult.init(status: CDVCommandStatus.ok)
         self.commandDelegate.send(result, callbackId: callbackId)
     }
     
-    func sendSuccess(data: [String:Any], callbackId: String) {
+    private func sendSuccess(data: [String:Any], callbackId: String) {
         let result = CDVPluginResult.init(status: CDVCommandStatus.ok, messageAs: data)
         self.commandDelegate.send(result, callbackId: callbackId)
     }
     
-    func sendError(error: PluginError, message: String, callbackId: String) {
+    private func sendError(error: PluginError, message: String, callbackId: String) {
         let error = CDVPluginResult.init(status: CDVCommandStatus.error, messageAs: [
             "code": error.rawValue,
             "message": message
