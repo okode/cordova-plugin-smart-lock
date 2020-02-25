@@ -108,8 +108,7 @@ class Credentials: NSObject, NSCoding {
         let keychain = self.getSharedKeyChainInstance()
         do {
             try keychain.remove(Smartlock.CREDENTIALS_KEYCHAIN_KEY)
-            let result = CDVPluginResult.init(status: CDVCommandStatus.ok)
-            self.commandDelegate.send(result, callbackId: command.callbackId)
+            self.sendSuccess(callbackId: command.callbackId)
         }
         catch let error {
             self.sendError(error: PluginError.DELETE_OP_ERROR, message: error.localizedDescription, callbackId: command.callbackId)
@@ -117,7 +116,7 @@ class Credentials: NSObject, NSCoding {
     }
     
     private func getSharedKeyChainInstance() -> Keychain {
-        let teamId = self.commandDelegate.settings[Smartlock.PREFERENCE_TEAM_ID] as? String ?? ""
+          let teamId = self.commandDelegate.settings[Smartlock.PREFERENCE_TEAM_ID] as? String ?? ""
         return Keychain(accessGroup: "\(teamId).\(Smartlock.KEYCHAIN_GROUP_NAME)")
     }
     
