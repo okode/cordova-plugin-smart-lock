@@ -116,7 +116,7 @@ class Credentials: NSObject, NSCoding {
     }
     
     private func getSharedKeyChainInstance() -> Keychain {
-          let teamId = self.commandDelegate.settings[Smartlock.PREFERENCE_TEAM_ID] as? String ?? ""
+        let teamId = self.commandDelegate.settings[Smartlock.PREFERENCE_TEAM_ID] as? String ?? ""
         return Keychain(accessGroup: "\(teamId).\(Smartlock.KEYCHAIN_GROUP_NAME)")
     }
     
