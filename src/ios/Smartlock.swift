@@ -46,7 +46,7 @@ class Credentials: NSObject, NSCoding {
     
     private static let KEYCHAIN_GROUP_NAME = "smartlock"
     private static let CREDENTIALS_KEYCHAIN_KEY = "smartlock_credentials"
-    private static let PREFERENCE_TEAM_ID = "SMARTLOCK_IOS_TEAM_ID"
+    private static let PREFERENCE_TEAM_ID = "smartlock_ios_team_id"
     
     enum PluginError:Int {
         case REQUEST_CREDENTIALS_NOT_FOUND = -100
