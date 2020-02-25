@@ -43,7 +43,7 @@
         <config>
             <source url="https://github.com/CocoaPods/Specs.git"/>
         </config>
-        <pods>
+        <pods use-frameworks="true">
             <pod name="KeychainAccess" spec="4.1.0"/>
         </pods>
     </podspec>
