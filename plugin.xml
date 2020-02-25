@@ -47,7 +47,7 @@
         </pods>
     </podspec>
 
-    <preference name="smartlock.ios_team_id" default=""/>
+    <preference name="SMARTLOCK_IOS_TEAM_ID" default=""/>
 
     <config-file target="*/Entitlements-Debug.plist" parent="keychain-access-groups">
       <array>
