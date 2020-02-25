@@ -29,4 +29,27 @@
     <source-file src="src/android/SmartlockManager.java" target-dir="src/org/apache/cordova/smartlock" />
   </platform>
 
+  <platform name="ios">
+    <dependency id="cordova-plugin-add-swift-support" version="^2.0.2"/>
+    <config-file target="config.xml" parent="/*">
+      <feature name="Smartlock">
+        <param name="ios-package" value="Smartlock"/>
+      </feature>
+    </config-file>
+    <header-file src="src/ios/Bridging-Header.h"/>
+    <source-file src="src/ios/Smartlock.swift"/>
+
+    <podspec>
+        <config>
+            <source url="https://github.com/CocoaPods/Specs.git"/>
+        </config>
+        <pods>
+            <pod name="KeychainAccess" spec="4.1.0"/>
+        </pods>
+    </podspec>
+
+    <!-- TODO: enable Keychain sharing -->
+    
+  </platform>
+
 </plugin>
