@@ -46,6 +46,7 @@ class Credentials: NSObject, NSCoding {
     
     private static let KEYCHAIN_GROUP_NAME = "smartlock"
     private static let CREDENTIALS_KEYCHAIN_KEY = "smartlock_credentials"
+    private static let PREFERENCE_TEAM_ID = "SMARTLOCK_IOS_TEAM_ID"
     
     enum PluginError:Int {
         case REQUEST_CREDENTIALS_NOT_FOUND = -100
@@ -116,7 +117,7 @@ class Credentials: NSObject, NSCoding {
     }
     
     private func getSharedKeyChainInstance() -> Keychain {
-        let teamId = self.commandDelegate.settings["smartlock.teamId"] as? String ?? ""
+        let teamId = self.commandDelegate.settings[Smartlock.PREFERENCE_TEAM_ID] as? String ?? ""
         return Keychain(accessGroup: "\(teamId).\(Smartlock.KEYCHAIN_GROUP_NAME)")
     }
     
