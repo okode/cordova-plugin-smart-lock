@@ -48,11 +48,15 @@
     </podspec>
 
     <config-file target="*/Entitlements-Debug.plist" parent="keychain-access-groups">
-      <string>$(AppIdentifierPrefix)smartlock</string>
+      <array>
+        <string>$(AppIdentifierPrefix)smartlock</string>
+      </array>
     </config-file>
     
     <config-file target="*/Entitlements-Release.plist" parent="keychain-access-groups">
-      <string>$(AppIdentifierPrefix)smartlock</string>
+      <array>
+        <string>$(AppIdentifierPrefix)smartlock</string>
+      </array>
     </config-file>
 
   </platform>
