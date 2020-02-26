@@ -116,8 +116,8 @@ class Credentials: NSObject, NSCoding {
     }
     
     private func getSharedKeyChainInstance() -> Keychain {
-        let teamId = self.commandDelegate.settings[Smartlock.PREFERENCE_TEAM_ID] as? String ?? ""
-        return Keychain(accessGroup: "\(teamId).\(Smartlock.KEYCHAIN_GROUP_NAME)")
+        let appIdentifierPrefix = Bundle.main.infoDictionary?["AppIdentifierPrefix"] as? String ?? ""
+        return Keychain(accessGroup: "\(appIdentifierPrefix)\(Smartlock.KEYCHAIN_GROUP_NAME)")
     }
     
     private func sendSuccess(callbackId: String) {
