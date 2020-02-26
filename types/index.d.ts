@@ -1,4 +1,4 @@
-interface SmartlockPlugin {
+export interface SmartlockPlugin {
   readonly SMARTLOCK__REQUEST__ACCOUNTS_NOT_FOUND;
   readonly SMARTLOCK__REQUEST__DIALOG_CANCELLED;
   readonly SMARTLOCK__SAVE;
@@ -52,15 +52,13 @@ interface SmartlockPlugin {
 }
 
 
-interface Credential {
+export interface Credential {
   id: string;
   name: string;
   password: string;
   profileUri?: string;
 }
 
-interface CredentialDeleteRequest {
+export interface CredentialDeleteRequest {
   id: string;
 }
-
-export { SmartlockPlugin, Credential, CredentialDeleteRequest };
