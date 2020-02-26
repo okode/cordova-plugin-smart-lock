@@ -4,6 +4,6 @@ repositories {
 
 dependencies {
     implementation 'com.android.support:appcompat-v7:24.2.1'
-    implementation 'com.google.android.gms:play-services-auth:15.0.1'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
 
 }
