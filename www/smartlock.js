@@ -12,10 +12,12 @@ Smartlock.prototype.SMARTLOCK__SAVE__BAD_REQUEST = -201
 
 Smartlock.prototype.SMARTLOCK__DELETE = -300
 
-Smartlock.prototype.SMARTLOCK__COMMON__UNKOWN = -400
-Smartlock.prototype.SMARTLOCK__COMMON__CONCURRENT_NOT_ALLOWED = -401
-Smartlock.prototype.SMARTLOCK__COMMON__GOOGLE_API_UNAVAILABLE = -402
-Smartlock.prototype.SMARTLOCK__COMMON__RESOLUTION_PROMPT_FAIL = -403
+Smartlock.prototype.SMARTLOCK__DISABLE_AUTO_SIGN_IN = -400
+
+Smartlock.prototype.SMARTLOCK__COMMON__UNKOWN = -500
+Smartlock.prototype.SMARTLOCK__COMMON__CONCURRENT_NOT_ALLOWED = -501
+Smartlock.prototype.SMARTLOCK__COMMON__GOOGLE_API_UNAVAILABLE = -502
+Smartlock.prototype.SMARTLOCK__COMMON__RESOLUTION_PROMPT_FAIL = -503
 
 Smartlock.prototype.request = function () {
   return new Promise(function (resolve, reject) {
@@ -49,6 +51,18 @@ Smartlock.prototype.delete = function (params) {
       "Smartlock",
       "delete",
       [params]
+    );
+  });
+};
+
+Smartlock.prototype.disableAutoSignIn = function () {
+  return new Promise(function (resolve, reject) {
+    cordova.exec(
+      function () { resolve(true); },
+      function (error) { reject(error); },
+      "Smartlock",
+      "disableAutoSignIn",
+      []
     );
   });
 };

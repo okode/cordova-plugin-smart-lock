@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.net.Uri;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -136,6 +136,21 @@ public class Smartlock extends CordovaPlugin {
             } catch (JSONException e) {
                 sendError(callbackContext, PluginError.SMARTLOCK__SAVE__BAD_REQUEST);
             }
+            return;
+        }
+
+        if (action.equals("disableAutoSignIn")){
+            smartlockManager.executeDisableAutoSignIn(new ResultCallback<Status>() {
+                @Override
+                public void onResult(@NonNull Status status) {
+                    if (status.isSuccess()) {
+                        Log.d(TAG, "DisableAutoSignIn success");
+                        sendSuccess(callbackContext);
+                    } else {
+                        sendError(callbackContext, PluginError.SMARTLOCK__DISABLE_AUTO_SIGN_IN);
+                    }
+                }
+            });
             return;
         }
     }

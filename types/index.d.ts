@@ -4,6 +4,7 @@ export interface SmartlockPlugin {
   readonly SMARTLOCK__SAVE;
   readonly SMARTLOCK__SAVE__BAD_REQUEST;
   readonly SMARTLOCK__DELETE;
+  readonly SMARTLOCK__DISABLE_AUTO_SIGN_IN;
   readonly SMARTLOCK__COMMON__UNKOWN;
   readonly SMARTLOCK__COMMON__CONCURRENT_NOT_ALLOWED;
   readonly SMARTLOCK__COMMON__GOOGLE_API_UNAVAILABLE;
@@ -19,7 +20,7 @@ export interface SmartlockPlugin {
    *                   SMARTLOCK__REQUEST__DIALOG_CANCELLED: if user didnt select credential on modal
    *                   SMARTLOCK__COMMON*
    */
-  request(): Promise < Credential > ;
+  request(): Promise <Credential> ;
 
   /**
    * @description      Saves a Credential.
@@ -36,7 +37,7 @@ export interface SmartlockPlugin {
    *                   SMARTLOCK__SAVE__BAD_REQUEST: if password is empty
    *                   SMARTLOCK__COMMON*
    */
-  save(credential: Credential): Promise < true > ;
+  save(credential: Credential): Promise <true> ;
 
   /**
    * @description      Deletes a Credential.
@@ -48,7 +49,18 @@ export interface SmartlockPlugin {
    *                   SMARTLOCK__DELETE: Couldnt find Credential
    *                   SMARTLOCK__COMMON*
    */
-  delete(credentialDeleteRequest: CredentialDeleteRequest): Promise < true > ;
+  delete(credentialDeleteRequest: CredentialDeleteRequest): Promise <true> ;
+
+  /**
+   * @description      Only on Android, disables auto sign-in for the calling app on the current
+   *                   device only, until a successful call to save is subsequently made.
+   * @returns
+   *                   true: if succesfully executed.
+   * @errors
+   *                   SMARTLOCK__DISABLE_AUTO_SIGN_IN
+   *                   SMARTLOCK__COMMON*
+   */
+  disableAutoSignIn(): Promise <true> ;
 }
 
 
