@@ -22,13 +22,15 @@
         <param name="android-package" value="org.apache.cordova.smartlock.Smartlock" />
       </feature>
     </config-file>
+
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
       <meta-data android:name="asset_statements" android:resource="@string/asset_statements" />
     </config-file>
+
     <config-file target="res/values/strings.xml" parent="/*">
       <string name="asset_statements" translatable="false">
         [{
-          \"include\": \"https://d350xjyrztxie4.cloudfront.net/.well-known/assetlinks.json\"
+          \"include\": \"$ASSET_STATEMENT\"
         }]
       </string>
     </config-file> 
