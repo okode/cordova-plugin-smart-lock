@@ -114,6 +114,12 @@ class Credentials: NSObject, NSCoding {
             self.sendError(error: PluginError.DELETE_OP_ERROR, message: error.localizedDescription, callbackId: command.callbackId)
         }
     }
+
+    @objc(disableAutoSignIn:)
+    func disableAutoSignIn(_ command: CDVInvokedUrlCommand){
+        // Feature only for Android, not needed on iOS
+        self.sendSuccess(callbackId: command.callbackId)
+    }
     
     private func getSharedKeyChainInstance() -> Keychain {
         let appIdentifierPrefix = Bundle.main.infoDictionary?["AppIdentifierPrefix"] as? String ?? ""
