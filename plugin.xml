@@ -29,9 +29,7 @@
 
     <config-file target="res/values/strings.xml" parent="/*">
       <string name="asset_statements" translatable="false">
-        [{
-          \"include\": \"$ASSET_STATEMENT\"
-        }]
+        $ASSET_STATEMENT
       </string>
     </config-file> 
 
