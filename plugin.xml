@@ -17,6 +17,7 @@
 
   <!-- android -->
   <platform name="android">
+    <preference name="DIGITAL_ASSET_STATEMENT" default=""/>
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="Smartlock">
         <param name="android-package" value="org.apache.cordova.smartlock.Smartlock" />
@@ -28,7 +29,7 @@
     </config-file>
 
     <config-file target="res/values/strings.xml" parent="/*">
-      <string>$DIGITAL_ASSET_STATEMENT</string>
+      <string name="asset_statements" translatable="false">$DIGITAL_ASSET_STATEMENT</string>
     </config-file> 
 
     <framework src="src/android/build.gradle" custom="true" type="gradleReference"/>
