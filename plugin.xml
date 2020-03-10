@@ -29,7 +29,11 @@
     </config-file>
 
     <config-file target="res/values/strings.xml" parent="/*">
-      <string name="asset_statements" translatable="false">$DIGITAL_ASSET_STATEMENT</string>
+      <string name="asset_statements" translatable="false">
+        [{
+          \"include\": \"$DIGITAL_ASSET_STATEMENT\"
+        }]
+      </string>
     </config-file> 
 
     <framework src="src/android/build.gradle" custom="true" type="gradleReference"/>
