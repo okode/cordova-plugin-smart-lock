@@ -88,9 +88,7 @@ public class Smartlock extends CordovaPlugin {
                         sendError(callbackContext, PluginError.SMARTLOCK__REQUEST__ACCOUNTS_NOT_FOUND);
                     } else {
                         Log.w(TAG, "Unrecognized status code: " + status.getStatusCode());
-                        sendError(callbackContext,
-                                PluginError.SMARTLOCK__COMMON__UNKOWN.getValue(),
-                                status.getStatusCode() + " - " + status.getStatusMessage());
+                        sendError(callbackContext, PluginError.SMARTLOCK__COMMON__UNKOWN);
                     }
                 }
             });
@@ -232,9 +230,7 @@ public class Smartlock extends CordovaPlugin {
                 sendError(callbackContext, PluginError.SMARTLOCK__COMMON__RESOLUTION_PROMPT_FAIL);
             }
         } else {
-            sendError(callbackContext,
-                    PluginError.SMARTLOCK__COMMON__UNKOWN.getValue(),
-                    status.getStatusCode() + " - " + status.getStatusMessage());
+            sendError(callbackContext, PluginError.SMARTLOCK__COMMON__UNKOWN);
         }
     }
 
