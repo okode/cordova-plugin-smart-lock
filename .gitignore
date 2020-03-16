@@ -26,6 +26,10 @@ npm-debug.log
 testem.log
 typings/
 
+.gradle
+.project
+.settings
+
 # e2e
 e2e/*.js
 e2e/*.map
