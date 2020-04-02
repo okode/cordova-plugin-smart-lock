@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.android.gms.auth.api.Auth;
@@ -54,13 +51,13 @@ public class SmartlockManager  {
         googleApiClient = new GoogleApiClient.Builder(this.cordovaActivity)
                 .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                    public void onConnectionFailed(ConnectionResult connectionResult) {
                         listener.fail();
                     }
                 })
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                     @Override
-                    public void onConnected(@Nullable Bundle bundle) {
+                    public void onConnected(Bundle bundle) {
                         listener.ready();
                     }
 

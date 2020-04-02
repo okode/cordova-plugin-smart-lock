@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.net.Uri;
-import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -75,7 +74,7 @@ public class Smartlock extends CordovaPlugin {
         if (action.equals("request")) {
             smartlockManager.executeRequest(new ResultCallback<CredentialRequestResult>() {
                 @Override
-                public void onResult(@NonNull CredentialRequestResult credentialRequestResult) {
+                public void onResult(CredentialRequestResult credentialRequestResult) {
                     Status status = credentialRequestResult.getStatus();
                     Log.d(TAG, "Get status " + credentialRequestResult);
                     if (status.isSuccess()) {
@@ -101,7 +100,7 @@ public class Smartlock extends CordovaPlugin {
                 credential = parseSaveRequest(args);
                 smartlockManager.executeSave(credential, new ResultCallback<Status>() {
                     @Override
-                    public void onResult(@NonNull Status status) {
+                    public void onResult(Status status) {
                         if (status.isSuccess()) {
                             Log.d(TAG, "Save success");
                             sendSuccess(callbackContext);
@@ -122,7 +121,7 @@ public class Smartlock extends CordovaPlugin {
                 credential = parseDeleteRequest(args);
                 smartlockManager.executeDelete(credential, new ResultCallback<Status>() {
                     @Override
-                    public void onResult(@NonNull Status status) {
+                    public void onResult(Status status) {
                         if (status.isSuccess()) {
                             Log.d(TAG, "Delete success");
                             sendSuccess(callbackContext);
@@ -140,7 +139,7 @@ public class Smartlock extends CordovaPlugin {
         if (action.equals("disableAutoSignIn")){
             smartlockManager.executeDisableAutoSignIn(new ResultCallback<Status>() {
                 @Override
-                public void onResult(@NonNull Status status) {
+                public void onResult(Status status) {
                     if (status.isSuccess()) {
                         Log.d(TAG, "DisableAutoSignIn success");
                         sendSuccess(callbackContext);
