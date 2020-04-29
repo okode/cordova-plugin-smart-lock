@@ -1,7 +1,7 @@
 import Foundation
 import KeychainAccess
 
-class Credentials: NSObject, NSCoding {
+@objc(Credentials) class Credentials: NSObject, NSCoding {
     
     public static let ID_PARAM = "id"
     public static let NAME_PARAM = "name"
@@ -123,7 +123,7 @@ class Credentials: NSObject, NSCoding {
     
     private func getSharedKeyChainInstance() -> Keychain {
         let appIdentifierPrefix = Bundle.main.infoDictionary?["AppIdentifierPrefix"] as? String ?? ""
-        return Keychain(accessGroup: "\(appIdentifierPrefix)\(Smartlock.KEYCHAIN_GROUP_NAME)")
+        return Keychain(service: "smartlockService", accessGroup: "\(appIdentifierPrefix)\(Smartlock.KEYCHAIN_GROUP_NAME)")
     }
     
     private func sendSuccess(callbackId: String) {
