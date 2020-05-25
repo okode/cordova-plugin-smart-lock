@@ -1,25 +1,4 @@
 {
-  "_from": "github:okode/cordova-plugin-smart-lock",
-  "_id": "cordova-plugin-smart-lock@0.0.1",
-  "_inBundle": false,
-  "_integrity": "",
-  "_location": "/cordova-plugin-smart-lock",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "git",
-    "raw": "github:okode/cordova-plugin-smart-lock",
-    "rawSpec": "github:okode/cordova-plugin-smart-lock",
-    "saveSpec": "github:okode/cordova-plugin-smart-lock",
-    "fetchSpec": null,
-    "gitCommittish": null
-  },
-  "_requiredBy": [
-    "#DEV:/",
-    "#USER"
-  ],
-  "_resolved": "github:okode/cordova-plugin-smart-lock#8d5b8d3a9e92d67d31853859cd7a0fc224bfda26",
-  "_spec": "github:okode/cordova-plugin-smart-lock",
-  "_where": "/Users/jnavarro/work/ionic-smartlock/smartlock",
   "bugs": {
     "url": "https://github.com/okode/cordova-plugin-smart-lock/issues"
   },
@@ -33,10 +12,8 @@
   "deprecated": false,
   "description": "Cordova plugin to use Smart Lock on Android",
   "devDependencies": {
-    "cordova-paramedic": "git+https://github.com/apache/cordova-paramedic.git",
     "cordova-plugin-xml": "^0.1.2",
-    "eslint": "^6.5.1",
-    "jasmine": "^3.2.0"
+    "eslint": "^6.5.1"
   },
   "engines": {
     "cordovaDependencies": {
@@ -63,19 +40,6 @@
     "url": "git+https://github.com/okode/cordova-plugin-smart-lock.git"
   },
   "scripts": {
-    "eslint": "npx eslint www",
-    "plugin-version": "cordova-plugin-xml setVersion",
-    "test": "npm run eslint",
-    "test-android": "npx cordova-paramedic --platform android --plugin  $(pwd)",
-    "test-appveyor": "npm run test-browser",
-    "test-browser": "npx cordova-paramedic --platform browser --plugin  $(pwd)",
-    "test-ios": "npx cordova-paramedic --platform ios --plugin  $(pwd) --verbose",
-    "test-local": "npm run test-browser && npm run test-android && npm run test-ios",
-    "test-saucelabs": "npm run test-saucelabs-ios && npm run test-saucelabs-android",
-    "test-saucelabs-android": "npx cordova-paramedic --config ./pr/android-7.0 --plugin  $(pwd) --shouldUseSauce",
-    "test-saucelabs-ios": "npx cordova-paramedic --config ./pr/ios-10.0 --plugin  $(pwd) --shouldUseSauce",
-    "test-travis": "npm run test-ios",
-    "test-windows": "npx cordova-paramedic --platform windows --plugin  $(pwd)"
   },
   "version": "0.0.1"
 }
