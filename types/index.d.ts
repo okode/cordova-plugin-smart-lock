@@ -51,24 +51,14 @@ export interface SmartlockPlugin {
    */
   delete(credentialDeleteRequest: CredentialDeleteRequest): Promise <true> ;
 
-  /**
-   * @description      Only on Android, disables auto sign-in for the calling app on the current
-   *                   device only, until a successful call to save is subsequently made.
-   * @returns
-   *                   true: if succesfully executed.
-   * @errors
-   *                   SMARTLOCK__DISABLE_AUTO_SIGN_IN
-   *                   SMARTLOCK__COMMON*
-   */
-  disableAutoSignIn(): Promise <true> ;
 }
 
 
 export interface Credential {
+  appName: string;
   id: string;
   name: string;
   password: string;
-  profileUri?: string;
 }
 
 export interface CredentialDeleteRequest {
